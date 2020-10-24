@@ -120,7 +120,7 @@ $inventarioProducto = new InventarioProducto();
       </div>
       <!-- Begin Page Content -->
       <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
+	  	<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
@@ -135,12 +135,12 @@ $inventarioProducto = new InventarioProducto();
 						<p>
 							<h4 class="agileinfo_sign">Seguro que desea eliminar el registro ? </h4>
 						</p>
-						<form action="../Eliminar/eliminar.php?cod_tipo_producto=<?php echo $obtener_info->cod_tipo_producto; ?>" method="post">
+						<form action="../Procesos/eliminar.php?cod_tipo_producto=<?php echo $obtener_info->cod_tipo_producto; ?>" method="post">
 						
 						
 							
               <input class="btn btn-primary" type="submit" value="Si">
-              <input class="btn btn-primary" type="submit" value="No">
+              <input class="btn btn-primary" value="No" href="nuevo_tipo_producto.php">
 						</form>
 						
 					</div>
