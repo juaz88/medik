@@ -1,1 +1,0 @@
-Aqui se guardan los archivos html y php que interactuan con el usuario como tablas y vistas en general
