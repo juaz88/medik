@@ -24,6 +24,11 @@
     <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
@@ -140,10 +145,8 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                           <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista de Establecimientos</h6>
-                            <div class="d-flex justify-content-end">
-                              <a class="btn btn-primary" href="forms/nuevo_tipo_establecimiento.php" role="button">Nuevo</a>
-                            </div>
+                            <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+                            
                           </div>
                           <div class="card-body">
                             <div class="table-responsive">
@@ -151,73 +154,67 @@
                                 <thead>
                                   <tr>
                                     <th>Nombre</th>
-                                    <th>Ubicación</th>
-                                    <th>Nombre Propietario</th>
+                                    <th>Cantidad disponible</th>
+                                    <th>Precio</th>
                                     <th>Acciones</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Crema Dental</td>
+                                    <td>5</td>
+                                    <td>$5.500</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Cepillo de dientes</td>
+                                    <td>4</td>
+                                    <td>$8.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Jabón de manos</td>
+                                    <td>23</td>
+                                    <td>$12.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Crema Dental</td>
+                                    <td>5</td>
+                                    <td>$8.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Crema Dental</td>
+                                    <td>5</td>
+                                    <td>$8.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Crema Dental</td>
+                                    <td>5</td>
+                                    <td>$8.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td>MiniMarket</td>
-                                    <td>Robledo</td>
-                                    <td>Edwin Garzón</td>
+                                    <td>Crema Dental</td>
+                                    <td>5</td>
+                                    <td>$8.000</td>
                                     <td>
-                                      <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                                      <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                      <button class="btn btn-primary" title="Eliminar"><i class="fa fa-shopping-cart"></i></button>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -309,6 +306,24 @@
 
         <!-- Template Main JS File -->
         <script src="assets/js/main.js "></script>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/js/demo/datatables-demo.js"></script>
 
 </body>
 
