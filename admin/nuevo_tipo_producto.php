@@ -83,10 +83,10 @@
                                                     <div class="text-left">
                                                         <h1 class="h4 text-gray-900 mb-4">Crear</h1>
                                                     </div>
-                                                    <form class="user" name="insertar_marca" action="../Insertar/Insertar_Marca.php" method="post">
+                                                    <form class="user" name="insertar_Tipo_Producto" action="../Procesos/Insertar_Tipo_Producto.php" method="post">
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" name="codigo_tipo_producto" id="codigo_tipo_producto" placeholder="Código Tipo Producto">
+                                                                <input type="text" class="form-control form-control-user" name="cod_tipo_producto" id="cod_tipo_producto" placeholder="Código Tipo Producto">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
