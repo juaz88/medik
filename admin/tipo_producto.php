@@ -1,3 +1,7 @@
+<?php
+require_once '../modelos/control_metodos.php';
+$inventarioProducto = new InventarioProducto();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +81,7 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Lista </h6>
               <div class="d-flex justify-content-end">
-                <a class="btn btn-primary" href="nuevo_plantilla.php" role="button">Nuevo</a>
+                <a class="btn btn-primary" href="nuevo_tipo_producto.php" role="button">Nuevo</a>
               </div>
             </div>
             <div class="card-body">
@@ -85,77 +89,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Campo 1</th>
-                      <th>Campo 2</th>
-                      <th>Campo 3</th>
+                      <th>Código Producto</th>
+                      <th>Descripción Producto</th>
+                      <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <?php foreach ($inventarioProducto->obtenerTodos() as $obtener_info) { ?>
                     <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
+                      <td class="borde marInt alCen"><?php echo $obtener_info->cod_tipo_producto; ?></td>
+                      <td class="borde marInt alCen"><?php echo $obtener_info->descripcion_producto; ?></td>
+                      <td class="borde marInt alCen"><?php echo $obtener_info->id_estado; ?></td>
                       <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>Valores</td>
-                      <td>
-                        <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button>
-                        <button class="btn btn-danger" title="Eliminar"><i class="fa fa-trash"></i></button>
+                        <a href="../Funciones/modificar_marca.php?cod_marca=<?php echo $obtener_info->cod_tipo_producto; ?>"> <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button></a>
+                       
+                        <button class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#myModal2"><i class="fa fa-trash"></i></button>                    
                       </td>
                     </tr>
                   </tbody>
+                  <?php } ?>
                 </table>
               </div>
             </div>
@@ -166,7 +119,34 @@
 
       </div>
       <!-- Begin Page Content -->
-
+      <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body modal-body-sub_agile">
+					<div class="main-mailposi">
+						<span class="fa fa-envelope-o" aria-hidden="true"></span>
+					</div>
+					<div class="modal_body_left modal_body_left1">
+					
+						<p>
+							<h4 class="agileinfo_sign">Seguro que desea eliminar el registro ? </h4>
+						</p>
+						<form action="../Eliminar/eliminar.php?cod_tipo_producto=<?php echo $obtener_info->cod_tipo_producto; ?>" method="post">
+						
+						
+							
+              <input class="btn btn-primary" type="submit" value="Si">
+              <input class="btn btn-primary" type="submit" value="No">
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			<!-- //Modal content-->
       <!-- /.container-fluid -->
 
     </div>
