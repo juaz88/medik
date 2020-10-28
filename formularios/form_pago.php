@@ -1,3 +1,12 @@
+<?php
+    include("../Procesos/control_pago.php");
+    $tipo=new consultas;
+    $lista=$tipo->buscar_tipos();
+    
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -92,9 +101,6 @@
 
                 <div class="row">
 
-
-
-
                     <div class="col-6">
 
                         <div class="form">
@@ -130,11 +136,14 @@
 
                                     <label for="m_pago">Medio de pago</label>
                                     <select class="form-control" name="m_pago" id="m_pago">
-                                        <option>op1</option>
-                                        <option>op2</option>
-                                        <option>op3</option>
-                                    </select>
+                                        <?php  
+                                            foreach ($lista as $dato){  ?>
+                                                
+                                            <option><?php echo $dato['descripcion']; ?></option>
+                                         <?php } ?> 
 
+                                    </select>
+                                                
                                     <div class="validate"></div>
                                 </div>
 
