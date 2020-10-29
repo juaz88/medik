@@ -1,16 +1,61 @@
 <?php
 include("../Procesos/control_pedido.php");
 $product = new pedido;
+$carrito = new carrito;
+$valor_total = 0;
 $lista = $product->buscar_productos();
+$lista_carrito=array();
+$validacion = $carrito->validar_ult_carrito();
+$excede = "";
 
-if(isset($_GET['codigo']) && $_GET['valor']!=""){
-    $valor=$_GET['valor'];
-    $codigo=$_GET['codigo'];
-    echo $valor;
-    echo $codigo;
+
+if ($validacion['estado'] == 1) {
+    $cod_carrito = $validacion['cod_carrito'];
+} else {
+    $carrito->crear_carrito(1);
+    $validacion = $carrito->validar_ult_carrito();
+    $cod_carrito = $validacion['cod_carrito'];
+}
+
+
+if(isset($_GET['cancelar'])){
+    echo "si esta ";
+    $carrito->carrito_cancelar($cod_carrito);
+    $lista_carrito = $carrito->ver_carrito($cod_carrito);
+    header("Location: http://localhost/medik");
     
-    
-    
+}
+
+
+$lista_carrito = $carrito->ver_carrito($cod_carrito);
+
+if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
+    $cantidad = $_GET['cantidad'];
+    $cod_producto = $_GET['codigo'];
+    $precio = $_GET['precio'];
+    $disponible = $_GET['disponible'];
+    $nombre = $_GET['nombre'];
+
+    $valor = $precio * $cantidad;
+    //valida que la cantidad no exceda el disponible
+    if ($cantidad <= $disponible) {
+        //valida si esta relacion ya existe para actualizarla de lo contrario la agrega nueva
+        $contar = $carrito->contar_carrito_producto($cod_carrito, $cod_producto);
+        if ($contar == 0) {
+
+            $carrito->agregar_a_carrito($cod_carrito, $cod_producto, $cantidad, $valor);
+            $lista_carrito = $carrito->ver_carrito($cod_carrito);
+            //echo "agregado";
+        } else {
+            $carrito->actualizar_carrito($cod_carrito, $cod_producto, $cantidad, $valor);
+            $lista_carrito = $carrito->ver_carrito($cod_carrito);
+            // echo "actualizado";
+        }
+    } else {
+
+        $excede = "excede la cantidad disponible de " . $nombre;
+    }
+
 }
 
 
@@ -108,64 +153,131 @@ if(isset($_GET['codigo']) && $_GET['valor']!=""){
 
         <section class="inner-page pt-4">
             <div class="container">
-                <p>
 
 
+                <div class="form">
 
-                    <div class="form">
+                    <h4></h4>
+                    <p>Selecciona la cantidad del producto que deseas agregar al carrito</p>
 
-                        <h4></h4>
-                        <p>Selecciona la cantidad del producto que deseas agregar o extraer del carrito</p>
+                    <div class="container-fluid">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+                                <span class="text-danger"><?php echo $excede; ?></span>
 
-                        <div class="container-fluid">
-                            <!-- DataTales Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+                            </div>
 
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Cantidad disponible</th>
-                                                    <th>Precio</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Cantidad disponible</th>
+                                                <th>Precio</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
 
-                                            <tbody>
-                                                <?php  foreach($lista as $dato){ ?>
+                                        <tbody>
+                                            <?php foreach ($lista as $dato) { ?>
                                                 <tr>
                                                     <td><?php echo $dato['nombre_producto'] ?></td>
                                                     <td><?php echo $dato['cantidad_disponible'] ?></td>
                                                     <td><?php echo $dato['precio_ud'] ?></td>
                                                     <td>
                                                         <form action="" method="GET">
-                                                            <input type="number" name="valor" id="valor" style="width : 60px" >
+                                                            <input type="number" min="0" name="cantidad" id="cantidad" style="width : 60px">
                                                             <input type="hidden" name="codigo" id="codigo" value=<?php echo $dato['cod_producto'] ?>>
-                                                            <a href="form_pedido.php?cod=codigo&valor=valor"> <button class="btn btn-primary" title="Carrito"  ><i class="fa fa-shopping-cart" > </i></button></a>
+                                                            <input type="hidden" name="precio" id="precio" value=<?php echo $dato['precio_ud'] ?>>
+                                                            <input type="hidden" name="nombre" id="nombre" value=<?php echo $dato['nombre_producto'] ?>>
+                                                            <input type="hidden" name="disponible" id="disponible" value=<?php echo $dato['cantidad_disponible'] ?>>
+                                                            <a href="form_pedido.php?cod=codigo&cantidad=cantidad&precio=precio&disponible=disponible&nombre=nombre"> <button class="btn btn-primary" title="Carrito"><i class="fa fa-shopping-cart"> </i></button></a>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                                <?php } ?>    
-                                            </tbody>
-                                        </table>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card w-50">
+                            <div class="card-header py-2">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="m-0 font-weight-bold text-primary">Carrito</h6>
+
+                                        </div>
+                                        <div class="col-6">
+
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Valor</th>
 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            if (!empty($lista_carrito)) {   
+                                                
+                                                foreach ($lista_carrito as $dato) { ?>
+                                                <tr>
+                                                    <td><?php echo $dato['nombre_producto']; ?></td>
+                                                    <td><?php echo $dato['cantidad']; ?></td>
+                                                    <td><?php echo $dato['valor']; ?></td>
+                                                    <?php $valor_total = $valor_total + $dato['valor']; ?>
+                                                </tr>
 
+                                         <?php } 
+                                         } else{?>
+                                          <tr>
+                                              
+                                                <td><p class="font-italic text-black-50">Carrito Vacío</p></td>
+                                                <td></td>
+                                                <td></td>
+                                                
+                                            </tr>
+                                         <?php } ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="card-header py-2">
+                                <h6 class="m-0 font-weight-bold "><?php echo "Valor total de su pedido es " . $valor_total; ?></h6>
+                            </div>
+
+                            <div class="card-footer">
+                                <a href="form_pago.php?cod_carrito=<?php echo $cod_carrito. '&valor_total='.$valor_total; ?>"><button type="button" class="btn btn-outline-success" >Confirmar pedido</button></a>
+                                <a href="form_pedido.php?cancelar=True"><button type="button" class="btn btn-outline-danger">Cancelar pedido</button></a>
+
+                            </div>
 
                         </div>
-                    </div>
 
-                </p>
+
+
+
+                    </div>
+                </div>
+
+
             </div>
 
-       
+
         </section>
 
     </main>

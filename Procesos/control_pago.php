@@ -86,6 +86,37 @@
 
     }
 
+    class carrito_pago{
+        public function ver_carrito($cod_carrito){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT productos.nombre_producto,cantidad,valor from carrito_producto JOIN productos ON productos.cod_producto=carrito_producto.cod_producto where carrito_producto.cod_carrito=(:cod_carrito) ";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->execute();
+            $lista = $resultado->fetchAll();
+            if (!$lista){
+                return "";
+
+            }else{
+                return $lista;
+            }
+
+        }
+
+        public function carrito_cerrar($cod_carrito){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "UPDATE carrito SET estado=0 where cod_carrito=(:cod_carrito)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam('cod_carrito',$cod_carrito);
+            $resultado->execute();
+
+        }
+
+
+    }
+
   if(isset($_GET['id_tipo_pago'])){
         $cod=$_GET['id_tipo_pago'];
         $accion=$_GET['accion'];

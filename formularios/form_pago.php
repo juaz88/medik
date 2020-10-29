@@ -2,6 +2,20 @@
     include("../Procesos/control_pago.php");
     $tipo=new consultas;
     $lista=$tipo->buscar_tipos();
+    $carrito=new carrito_pago;
+    if(isset($_GET['cod_carrito'])){
+        $cod_carrito=$_GET['cod_carrito'];
+        $valor_total=$_GET['valor_total'];
+        $lista_carrito= $carrito->ver_carrito($cod_carrito);
+
+
+    }
+
+    if(isset($_POST['pagar'])){
+
+        $carrito->carrito_cerrar($cod_carrito);
+        header("Location: http://localhost/medik");
+    }
     
     
 
@@ -108,7 +122,7 @@
 
                             <p>Completa la información para realizar el pago</p>
 
-                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <form action="" method="post" role="form" class="php-email-form">
 
                                 <div class="form-group">
                                     <label for="name">Nombres</label>
@@ -148,7 +162,7 @@
                                 </div>
 
                                  <div class="row-cols-2">
-                                     <button type="submit" class="btn btn-primary">Efectuar pago</button>
+                                     <button type="submit" class="btn btn-primary" name="pagar">Efectuar pago</button>
                                      <button type="button" class="btn btn-secondary">Cancelar</button>
                                  </div>   
                                  
@@ -172,7 +186,7 @@
                                         </div>
                                         <div class="col-3">
 
-                                            <h4 class="card-title">45715</h4>
+                                            <h4 class="card-title"><?php  echo $cod_carrito; ?></h4>
                                         </div>
 
                                     </div>
@@ -187,29 +201,37 @@
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
-                                                <th>Valor ud</th>
                                                 <th>Valor total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php foreach($lista_carrito as $dato){ ?>
                                             <tr>
-                                                <td scope="row">Aspirina</td>
-                                                <td>5</td>
-                                                <td>3000</td>
-                                                <td>15000</td>
+                                                <td scope="row"><?php  echo $dato['nombre_producto']; ?></td>
+                                                <td><?php  echo $dato['cantidad']; ?></td>
+                                                <td><?php  echo $dato['valor']; ?></td>
+                                                
+
+                                            </tr>
+                                            <?php } ?>
+                                            <tr>
+                                                <td>Sub-total</td>
+                                                <td></td>
+                                                <td><?php  echo $valor_total; ?></td>
 
                                             </tr>
                                             <tr>
-                                                <td scope="row">Suero</td>
-                                                <td>1</td>
-                                                <td>2800</td>
-                                                <td>2800</td>
+                                                <td>Impuestos</td>
+                                                <td>19%</td>
+                                                <td><?php  echo $valor_total*0.19; ?></td>
+
                                             </tr>
+
                                             <tr>
-                                                <td scope="row">Total</td>
+                                                <td>Total a pagar</td>
                                                 <td></td>
-                                                <td></td>
-                                                <td>17800</td>
+                                                <td><?php  echo $valor_total*1.19; ?></td>
+
                                             </tr>
                                         </tbody>
                                     </table>

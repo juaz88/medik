@@ -70,6 +70,7 @@
             $resultado->execute();
             $lista = $resultado->fetchAll();
             return $lista;
+
         }
 
 
@@ -77,21 +78,118 @@
     }
 
     class carrito{
-        public function agregar($codigo, $descripcion, $estado)
+        public function crear_carrito($estado)
         {
 
             $modelo = new Db();
             $conexion = $modelo->conectar();
-            $sentencia =  "INSERT INTO tipo_pago (
-            id_tipo_pago,
-            descripcion,
+            $sentencia =  "INSERT INTO carrito (
             estado
-            ) VALUES (:id_tipo_pago,:descripcion,:estado)";
+            ) VALUES (:estado)";
             $resultado = $conexion->prepare($sentencia);
-            $resultado->bindParam(':id_tipo_pago', $codigo);
-            $resultado->bindParam(':descripcion', $descripcion);
             $resultado->bindParam(':estado', $estado);
+            $resultado->execute();
+           
+
+        }
+
+
+        
+        public function validar_ult_carrito(){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT * FROM carrito WHERE (SELECT MAX(cod_carrito) FROM carrito) = cod_carrito ";
+            $resultado = $conexion->prepare($sentencia);
+            
+            $resultado->execute();
+            $lista = $resultado->fetch();
+            if (!$lista){
+                return "sin carrito";
+
+            }else{
+                return $lista;
             }
+           
+
+        } 
+
+        public function agregar_a_carrito($cod_carrito,$cod_producto,$cantidad,$valor){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia =  "INSERT INTO carrito_producto (cod_carrito,cod_producto,cantidad,valor) VALUES (:cod_carrito,:cod_producto,:cantidad,:valor)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->bindParam(':cod_producto',$cod_producto);
+            $resultado->bindParam(':cantidad',$cantidad);
+            $resultado->bindParam(':valor', $valor);
+            $resultado->execute();
+
+        }
+
+        public function contar_carrito_producto($cod_carrito,$cod_producto){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT count(*) FROM carrito_producto WHERE cod_carrito=(:cod_carrito) and cod_producto=(:cod_producto) ";
+           
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->bindParam(':cod_producto',$cod_producto);
+            $resultado->execute();
+            $count = $resultado->fetchColumn();
+            return $count;
+
+        }
+
+        public function actualizar_carrito($cod_carrito,$cod_producto,$cantidad,$valor){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "UPDATE carrito_producto SET cantidad=(:cantidad), valor=(:valor) WHERE cod_carrito=(:cod_carrito) and cod_producto=(:cod_producto)  ";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->bindParam(':cod_producto',$cod_producto);
+            $resultado->bindParam(':cantidad',$cantidad);
+            $resultado->bindParam(':valor', $valor);
+            $resultado->execute();
+                     
+        }
+
+        public function ver_carrito($cod_carrito){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT productos.nombre_producto,cantidad,valor from carrito_producto JOIN productos ON productos.cod_producto=carrito_producto.cod_producto where carrito_producto.cod_carrito=(:cod_carrito) ";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->execute();
+            $lista = $resultado->fetchAll();
+            if (!$lista){
+                return "";
+
+            }else{
+                return $lista;
+            }
+
+        }
+
+        public function carrito_cancelar($cod_carrito){
+
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "DELETE FROM carrito_producto WHERE cod_carrito=(:cod_carrito)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_carrito', $cod_carrito);
+            $resultado->execute();
+            
+
+        }
+
+      
+
+
+
+
+
+
+
     }   
 
  
