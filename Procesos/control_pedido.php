@@ -5,40 +5,6 @@
  
     class pedido{
 
-        public function insertar_pedido($codigo, $descripcion, $estado)
-        {
-
-            $modelo = new Db();
-            $conexion = $modelo->conectar();
-            $sentencia =  "INSERT INTO tipo_pago (
-            id_tipo_pago,
-            descripcion,
-            estado
-            ) VALUES (:id_tipo_pago,:descripcion,:estado)";
-            $resultado = $conexion->prepare($sentencia);
-            $resultado->bindParam(':id_tipo_pago', $codigo);
-            $resultado->bindParam(':descripcion', $descripcion);
-            $resultado->bindParam(':estado', $estado);
-
-            if (!$resultado) {
-                return "error al crear el registro";
-            } else {
-                $resultado->execute();
-
-                return "registro exitoso!!";
-            }
-        }
-
-        public function borrar_tipo_pago($codigo)
-        {
-
-            $modelo = new Db();
-            $conexion = $modelo->conectar();
-            $sentencia = "DELETE FROM tipo_pago WHERE id_tipo_pago=:id_tipo_pago";
-            $resultado = $conexion->prepare($sentencia);
-            $resultado->bindParam(':id_tipo_pago', $codigo);
-            $resultado->execute();
-        }
 
         public function actualizar_pedido($codigo, $descripcion, $estado)
         {
@@ -58,7 +24,33 @@
             }
         }
 
-    
+        public function buscar_pedidos()
+        {
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT * FROM pedidos";
+            $resultado = $conexion->prepare($sentencia);
+            
+            $resultado->execute();
+            $lista = $resultado->fetchAll();
+            return $lista;
+
+        }
+
+        public function actualizar_estado($cod_pedido,$estado_pedido)
+        {
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "UPDATE pedidos SET estado=(:estado_pedido) WHERE cod_pedido=(:cod_pedido)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_pedido',$cod_pedido);
+            $resultado->bindParam(':estado_pedido',$estado_pedido);
+            $resultado->execute();
+           
+            
+
+        }
+
 
         public function buscar_productos()
         {

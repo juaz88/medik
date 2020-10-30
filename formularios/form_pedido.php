@@ -59,7 +59,6 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
 }
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +122,7 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
 
             <nav class="main-nav d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="index.html">Inicio</a></li>
+                    <li class="active"><a href="../index.html">Inicio</a></li>
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
                     <li><a href="#footer">Contacto</a></li>
@@ -142,7 +141,7 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
             <div class="container">
 
                 <ol>
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="../index.html">Inicio</a></li>
 
                 </ol>
                 <h2>Pedidos</h2>
@@ -261,7 +260,7 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
                             </div>
 
                             <div class="card-footer">
-                                <a href="form_pago.php?cod_carrito=<?php echo $cod_carrito. '&valor_total='.$valor_total; ?>"><button type="button" class="btn btn-outline-success" >Confirmar pedido</button></a>
+                                <a href="form_pago.php?cod_carrito=<?php echo $cod_carrito. '&valor_total='.$valor_total; ?>"><button type="button" class="btn btn-outline-success" <?php if($valor_total>0){echo "enabled";}else{echo "disabled";} ?>>Confirmar pedido</button></a>
                                 <a href="form_pedido.php?cancelar=True"><button type="button" class="btn btn-outline-danger">Cancelar pedido</button></a>
 
                             </div>

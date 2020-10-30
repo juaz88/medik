@@ -12,12 +12,26 @@
     }
 
     if(isset($_POST['pagar'])){
+        
+        
+        $cod_pedido=$_POST['cod_pedido'];
+        $fecha_pedido=$_POST['fecha_pedido'];
+        $id_usuario=$_POST['id_usuario'];
+        $estado_pedido=$_POST['estado_pedido'];
+        //registra el pedido antes de vaciar el carrito
+        $carrito->registro_pedido($cod_pedido,$fecha_pedido,$cod_carrito,$id_usuario,$valor_total,$estado_pedido);  
 
+        //cierra el carrito 
         $carrito->carrito_cerrar($cod_carrito);
-        header("Location: http://localhost/medik");
+        header("Location: http://localhost/medik/vistas/vista_pedidos.php");
+
+      
     }
+
+
+
     
-    
+
 
 ?>
 
@@ -82,7 +96,7 @@
 
             <nav class="main-nav d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="index.html">Inicio</a></li>
+                    <li class="active"><a href="../index.html">Inicio</a></li>
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
                     <li><a href="#footer">Contacto</a></li>
@@ -101,7 +115,7 @@
             <div class="container">
 
                 <ol>
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="../index.html">Inicio</a></li>
 
                 </ol>
                 <h2>Realizar pago!</h2>
@@ -140,9 +154,9 @@
                                     <div class="validate"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="segundo_ap">Fecha</label>
+                                    <label for="fecha_pedido">Fecha</label>
                                     
-                                    <input type="date" name="fecha" class="form-control" id="fechap" value="" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <input type="text" name="fecha_pedido" class="form-control" id="fecha_pedido" value=<?php echo date("Y") ."-".date("m")."-" .date("d");  ?> data-rule="minlen:4" data-msg="Please enter at least 4 chars" readonly="disabled"/>
                                     <div class="validate"></div>
                                 </div>
                                 <div class="form-group">
@@ -160,7 +174,9 @@
                                                 
                                     <div class="validate"></div>
                                 </div>
-
+                                   <input type="hidden" name="cod_pedido" value=<?php echo "mx-".$cod_carrito ; ?>> 
+                                   <input type="hidden" name="id_usuario" value="103451">  
+                                   <input type="hidden" name="estado_pedido" value="Tramitando">             
                                  <div class="row-cols-2">
                                      <button type="submit" class="btn btn-primary" name="pagar">Efectuar pago</button>
                                      <button type="button" class="btn btn-secondary">Cancelar</button>
@@ -186,7 +202,7 @@
                                         </div>
                                         <div class="col-3">
 
-                                            <h4 class="card-title"><?php  echo $cod_carrito; ?></h4>
+                                            <h4 class="card-title"><?php  echo "MX-". $cod_carrito; ?></h4>
                                         </div>
 
                                     </div>

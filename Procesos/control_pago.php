@@ -114,10 +114,26 @@
 
         }
 
+        public function registro_pedido($cod_pedido, $fecha_pedido,$cod_carrito,$id_usuario, $valor_total,$estado_pedido){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "INSERT INTO pedidos (cod_pedido,fecha_pedido,cod_carrito,id_usuario,valor_pedido,estado) VALUES (:cod_pedido,:fecha_pedido,:cod_carrito,:id_usuario,:valor_total,:estado_pedido)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_pedido',$cod_pedido);
+            $resultado->bindParam(':fecha_pedido',$fecha_pedido);
+            $resultado->bindParam(':cod_carrito',$cod_carrito);
+            $resultado->bindParam(':id_usuario',$id_usuario);
+            $resultado->bindParam(':valor_total',$valor_total);
+            $resultado->bindParam(':estado_pedido',$estado_pedido);
+            $resultado->execute();
+
+
+        }    
+
 
     }
 
-  if(isset($_GET['id_tipo_pago'])){
+    if(isset($_GET['id_tipo_pago'])){
         $cod=$_GET['id_tipo_pago'];
         $accion=$_GET['accion'];
         
