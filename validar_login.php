@@ -55,7 +55,7 @@
           if ($row['cod_perfil'] == 1) {
             header('location:home.php');
           } else if ($row['cod_perfil'] == 2) {
-            header('location:index2.php');
+            header('location:index.php');
           } else if ($row['cod_perfil'] == 3) {
             header('location:Index.html');
           }
