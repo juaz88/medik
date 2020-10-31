@@ -87,11 +87,15 @@
                 <div class="col-md-6 intro-info order-md-first order-last" data-aos="zoom-in" data-aos-delay="100">
                     <h2>Portege tu salud<br>Pide desde casa con <span>Seguridad plena</span></h2>
                     <div>
+<<<<<<< HEAD
                         <div>
                         <a href="login.html" class="btn-get-started scrollto">Iniciar sesion</a>
                         
                         <button class="btn-get-started scrollto" title="registrarse" data-toggle="modal" data-target="#myModal2">Registrarse</button>                    
                     </div>
+=======
+                        <a href="javascript:void(0)" class="btn-get-started button-login scrollto">Iniciar sesion</a>
+>>>>>>> 1788842bc672e060b6a738c0d548f1192baa6eb0
                     </div>
                 </div>
 
@@ -284,6 +288,15 @@
 
         <!-- Page level custom scripts -->
         <script src="/js/demo/datatables-demo.js"></script>
+
+  <!-- Redirect Login page -->
+  <script>
+    $(function () {
+		$('.button-login').on('click', function (e) {
+			window.location.href = `/admin/login`;
+		})
+	});
+  </script>
 
 </body>
 
