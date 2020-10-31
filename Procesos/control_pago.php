@@ -82,6 +82,29 @@
             return $lista;
         }
 
+        public function buscar_tipo_producto()
+        {
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT * FROM tipo_producto";
+            $resultado = $conexion->prepare($sentencia);
+            
+            $resultado->execute();
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
+        public function buscar_productos()
+        {
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT * FROM tipo_producto";
+            $resultado = $conexion->prepare($sentencia);
+            
+            $resultado->execute();
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
 
 
     }

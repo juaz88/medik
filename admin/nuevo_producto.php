@@ -1,58 +1,11 @@
 <?php
-require_once ( '../Procesos/control_tipo_pago.php');
-
-$error_cod="";
-$error_desc="";
-$frm_enviado=false;
-$consultas=new consultas();
-if(isset($_POST["guardar_tipo_pago"])){
-        
-    $codigo=$_POST["codigo_tipo_pago"];
-    $desc=$_POST["desc_tipo_pago"];
-    $estado=array();
-    
-    if (isset($_POST["estado_tipo_pago"])){
-        $estado=1;
-    }else{
-        $estado=0;
-    }
-    $valido=0;  
-
-    if(!$codigo==""){
-        $exist=$consultas->buscar($codigo);
-        if (!$exist){
-
-            $valido=$valido+1;
-        }else{
-            $error_cod="El código ya existe";   
-        }  
-    }else{
-     $error_cod= "Por favor ingrese un código";
-   
-    }
-
-    if (!$desc==""){
-
-        $valido=$valido+1;
-
-    }else{
-        $error_desc="Por favor ingrese una descripción";
-    
-    }
-
-    if($valido==2){
-              
-        $mensaje=$consultas->insertar_tipo_pago($codigo,$desc,$estado);
-        header ("location: http://localhost/medik/admin/tipo_pago.php");      
-   
- 
-    }
-
-} ?>
-
+include("../Procesos/control_pago.php");
+    $tipo=new consultas;
+    $lista=$tipo->buscar_productos();
+    ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
 
@@ -133,39 +86,70 @@ if(isset($_POST["guardar_tipo_pago"])){
                                             <div class="col-lg-8">
                                                 <div class="p-5">
                                                     <div class="text-left">
-                                                        <h1 class="h4 text-gray-900 mb-4">Crear tipo de pago</h1>
+                                                        <h1 class="h4 text-gray-900 mb-4">Crear Producto</h1>
+                                                       
                                                     </div>
-                                                    <!-- FORMULARIO -->
-                                                    <form class="user" name="Insertar_Tipo_pago" action="" method="post">
+                                                    <form class="user" name="insertar_Producto" action="../Procesos/Insertar_Producto.php" method="post">
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" name="codigo_tipo_pago" id="codigo_tipo_pago" placeholder="Código"
-                                                                value="<?= (isset($codigo) && !$frm_enviado)?$codigo : "" ?>">
+                                                                <input type="text" class="form-control form-control-user" name="cod_producto" id="cod_producto" placeholder="Código Tipo Producto">
                                                             </div>
                                                         </div>
-                                                        <span class="text-danger"><?php echo $error_cod; ?></span>
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" name="desc_tipo_pago" id="desc_tipo_pago" placeholder="Descripción"
-                                                                value="<?= (isset($desc) && !$frm_enviado)?$desc : "" ?>">
+                                                                <input type="text" class="form-control form-control-user" name="nombre_producto" id="nombre_producto" placeholder="nombre del producto">
                                                             </div>
                                                         </div>
-                                                        <span class="text-danger"><?php echo $error_desc; ?></span>
-                                                        
+                                                        <div class="form-group">  
+                                                                <select class="form-control col-sm-4"  name="cod_tipo_producto" id="cod_tipo_producto">
+                                                                <option label="Tipo producto" value=""> </option>
+                                                                    <?php  
+                                                                        foreach ($lista as $dato){  ?>
+                                                                            
+                                                                        <option><?php echo $dato['descripcion_producto']; ?></option>
+                                                                    <?php } ?> 
+
+                                                                </select>
+                                                                            
+                                                                <div class="validate"></div>
+                                                                </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                                <input type="text" class="form-control form-control-user" name="precio_ud" id="precio_ud" placeholder="Precio">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="col-sm-6">
+                                                                <input type="text" class="form-control form-control-user" name="cantidad_disponible" id="cantidad_disponible" placeholder="Cantidad">
+                                                            </div>
+                                                        </div>
                                                         
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
-                                                              
-                                                                <input type="checkbox" class="custom-control-input" id="estado_tipo_pago" name="estado_tipo_pago" checked >
-                                                                <label class="custom-control-label" for="estado_tipo_pago">Activo</label>
+                                                            <select class="form-control col-sm-3" id="id_estado" name="id_estado" required >
+                                                                    <option label="ACTIVO" value="1">ACTIVO</option>
+                                                                    <option label="INACTIVO" value="2">INACTIVO</option>
+                                                                    
+                                                                    </select>
                                                             </div>
                                                         </div>
-                                                        <a href="tipo_pago.php" class="btn btn-secondary">
-                                                            Cancelar
-                                                        </a>
+                                                        
+                                                        
 
-                                                   
-                                                        <input type="submit" value="Guardar" class="btn btn-primary sm" name="guardar_tipo_pago">
+                                                        <div class="form-group row">
+		 <div class="col-sm-3">
+		  
+		 </div>
+		 <div class="col-sm-3">
+		   <input type="submit" value="Guardar" class="btn btn-primary  btn-block" name="guardar_producto">
+		 </div>    
+		 <div class="col-sm-3">
+		   <input type="reset" value="Cancelar" class="btn btn-primary  btn-secondary" name="cancelar">
+		 </div>
+		 <div class="col-sm-3">
+		  
+		 </div>
+	   </div>
                                                         <hr>
                                                     </form>
                                                     <hr>

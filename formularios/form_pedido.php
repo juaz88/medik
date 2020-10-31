@@ -101,7 +101,7 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
 <body>
 
     <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-none d-lg-flex align-items-end fixed-top topbar-transparent">
+    <div id="topbar" class="d-none d-lg-flex align-items-end fixed-top">
         <div class="container d-flex justify-content-end">
             <div class="social-links">
                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -113,10 +113,10 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
     </div>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top header-transparent">
+    <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center">
 
-            <h1 class="logo mr-auto"><a href="index.php">MediK</a></h1>
+            <h1 class="logo mr-auto"><a href="../index.php">MediK</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -173,6 +173,7 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
+                                                
                                                 <th>Nombre</th>
                                                 <th>Cantidad disponible</th>
                                                 <th>Precio</th>
@@ -183,11 +184,13 @@ if (isset($_GET['codigo']) && $_GET['cantidad'] != "") {
                                         <tbody>
                                             <?php foreach ($lista as $dato) { ?>
                                                 <tr>
+                                                   
                                                     <td><?php echo $dato['nombre_producto'] ?></td>
                                                     <td><?php echo $dato['cantidad_disponible'] ?></td>
                                                     <td><?php echo $dato['precio_ud'] ?></td>
                                                     <td>
                                                         <form action="" method="GET">
+                                                        
                                                             <input type="number" min="0" name="cantidad" id="cantidad" style="width : 60px">
                                                             <input type="hidden" name="codigo" id="codigo" value=<?php echo $dato['cod_producto'] ?>>
                                                             <input type="hidden" name="precio" id="precio" value=<?php echo $dato['precio_ud'] ?>>

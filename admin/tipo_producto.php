@@ -79,7 +79,7 @@ $inventarioProducto = new InventarioProducto();
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Lista </h6>
+              <h6 class="m-0 font-weight-bold text-primary">Lista de tipos de productos </h6>
               <div class="d-flex justify-content-end">
                 <a class="btn btn-primary" href="nuevo_tipo_producto.php" role="button">Nuevo</a>
               </div>
