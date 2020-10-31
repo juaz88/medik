@@ -1,6 +1,11 @@
+<?php
+include("../Procesos/control_pago.php");
+    $tipo=new consultas;
+    $lista=$tipo->buscar_productos();
+    ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
 
@@ -81,36 +86,70 @@
                                             <div class="col-lg-8">
                                                 <div class="p-5">
                                                     <div class="text-left">
-                                                        <h1 class="h4 text-gray-900 mb-4">Crear</h1>
+                                                        <h1 class="h4 text-gray-900 mb-4">Crear Producto</h1>
+                                                       
                                                     </div>
-                                                    <form class="user">
+                                                    <form class="user" name="insertar_Producto" action="../Procesos/Insertar_Producto.php" method="post">
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="codigo" placeholder="Código">
+                                                                <input type="text" class="form-control form-control-user" name="cod_producto" id="cod_producto" placeholder="Código Tipo Producto">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="" placeholder="">
+                                                                <input type="text" class="form-control form-control-user" name="nombre_producto" id="nombre_producto" placeholder="nombre del producto">
                                                             </div>
                                                         </div>
+                                                        <div class="form-group">  
+                                                                <select class="form-control col-sm-4"  name="cod_tipo_producto" id="cod_tipo_producto">
+                                                                <option label="Tipo producto" value=""> </option>
+                                                                    <?php  
+                                                                        foreach ($lista as $dato){  ?>
+                                                                            
+                                                                        <option><?php echo $dato['descripcion_producto']; ?></option>
+                                                                    <?php } ?> 
+
+                                                                </select>
+                                                                            
+                                                                <div class="validate"></div>
+                                                                </div>
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="" placeholder="">
+                                                                <input type="text" class="form-control form-control-user" name="precio_ud" id="precio_ud" placeholder="Precio">
                                                             </div>
                                                         </div>
+                                                        <div class="form-group ">
+                                                            <div class="col-sm-6">
+                                                                <input type="text" class="form-control form-control-user" name="cantidad_disponible" id="cantidad_disponible" placeholder="Cantidad">
+                                                            </div>
+                                                        </div>
+                                                        
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                                                <label class="custom-control-label" for="defaultUnchecked">Activo</label>
+                                                            <select class="form-control col-sm-3" id="id_estado" name="id_estado" required >
+                                                                    <option label="ACTIVO" value="1">ACTIVO</option>
+                                                                    <option label="INACTIVO" value="2">INACTIVO</option>
+                                                                    
+                                                                    </select>
                                                             </div>
                                                         </div>
-                                                        <a href="../tipo_establecimiento.php" class="btn btn-secondary">
-                                                            Cancelar
-                                                        </a>
-                                                        <a href="tipo_empleado" class="btn btn-primary">
-                                                            Guardar
-                                                        </a>
+                                                        
+                                                        
+
+                                                        <div class="form-group row">
+		 <div class="col-sm-3">
+		  
+		 </div>
+		 <div class="col-sm-3">
+		   <input type="submit" value="Guardar" class="btn btn-primary  btn-block" name="guardar_producto">
+		 </div>    
+		 <div class="col-sm-3">
+		   <input type="reset" value="Cancelar" class="btn btn-primary  btn-secondary" name="cancelar">
+		 </div>
+		 <div class="col-sm-3">
+		  
+		 </div>
+	   </div>
                                                         <hr>
                                                     </form>
                                                     <hr>

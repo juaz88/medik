@@ -1,3 +1,32 @@
+<?php 
+include("../Procesos/control_pedido.php");
+
+$consultas=new pedido;
+if(isset($_GET['cod_pedido'])){
+    $cod=$_GET['cod_pedido'];
+    //$info=$consultas->buscar_pedido($cod);
+    
+}
+
+$frm_enviado=false;
+if(isset($_POST["actualizar_pedido"])){
+        
+    $codigo=$_POST["cod_pedido"];
+    $estado_pedido=$_POST["estado_pedido"];
+  
+    
+    $consultas->actualizar_estado($cod,$estado_pedido);
+    header ("location: http://localhost/medik/admin/gestion_pedido.php");        
+        
+ 
+    
+
+
+}
+
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -81,36 +110,34 @@
                                             <div class="col-lg-8">
                                                 <div class="p-5">
                                                     <div class="text-left">
-                                                        <h1 class="h4 text-gray-900 mb-4">Crear</h1>
+                                                        <h1 class="h4 text-gray-900 mb-4">Editar</h1>
                                                     </div>
-                                                    <form class="user">
+                                                    <!-- FORMULARIO -->
+                                                    <form class="user" name="Insertar_Tipo_pago" action="" method="post">
                                                         <div class="form-group row">
                                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="codigo" placeholder="Código">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="" placeholder="">
+                                                                <input type="text" class="form-control form-control-user" value="<?php echo $cod; ?>" name="cod_pedido" id="cod_pedido"
+                                                                value="<?= (isset($codigo) && !$frm_enviado)?$codigo : "" ?>" readonly="disabled" >
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                                <input type="text" class="form-control form-control-user" id="" placeholder="">
-                                                            </div>
+                                                           <div class="col-5">
+                                                             <label for="estado_pedido"></label>
+                                                             <select class="form-control" name="estado_pedido" id="estado_pedido">
+                                                               <option>Tramitando</option>
+                                                               <option>Despachado</option>
+                                                               <option>Entregado</option>
+                                                             </select>
+                                                           </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                                                <label class="custom-control-label" for="defaultUnchecked">Activo</label>
-                                                            </div>
-                                                        </div>
-                                                        <a href="../tipo_establecimiento.php" class="btn btn-secondary">
+                                                       
+                                                        
+                                                        <a href="gestion_pedido.php" class="btn btn-secondary">
                                                             Cancelar
                                                         </a>
-                                                        <a href="tipo_empleado" class="btn btn-primary">
-                                                            Guardar
-                                                        </a>
+
+                                                   
+                                                        <input type="submit" value="Guardar cambios" class="btn btn-primary sm" name="actualizar_pedido">
                                                         <hr>
                                                     </form>
                                                     <hr>

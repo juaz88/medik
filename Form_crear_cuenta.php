@@ -70,7 +70,10 @@
                     <li class="active"><a href="index.html">Inicio</a></li>
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
-                    
+                    <li>
+					<a href="#" data-toggle="modal" data-target="#myModal2">
+						<span class="fa fa-pencil-square-o"></span> Registrarse </a>
+				</li>
                     
                 </ul>
             </nav>
@@ -86,18 +89,13 @@
             <div class="row justify-content-center align-self-center" data-aos="fade-up">
                 <div class="col-md-6 intro-info order-md-first order-last" data-aos="zoom-in" data-aos-delay="100">
                     <h2>Portege tu salud<br>Pide desde casa con <span>Seguridad plena</span></h2>
-                    <div>
-                        <div>
-                        <a href="login.html" class="btn-get-started scrollto">Iniciar sesion</a>
-                        
-                        <button class="btn-get-started scrollto" title="registrarse" data-toggle="modal" data-target="#myModal2">Registrarse</button>                    
-                    </div>
-                    </div>
+                    
                 </div>
 
                 <div class="col-md-6 intro-img order-md-last order-first" data-aos="zoom-out" data-aos-delay="200">
                     <img src="assets/img/n_intro-img.png" alt="" class="img-fluid">
                 </div>
+                
             </div>
 
         </div>
@@ -171,6 +169,7 @@
 			<!-- //Modal content-->
 		</div>
 	</div>
+
     <!-- End Hero -->
 
     <main id="main">
@@ -186,7 +185,7 @@
 
 
         </section>
-        
+        <
         <!-- End Services Section -->
 
         <!-- ======= Why Us Section ======= -->

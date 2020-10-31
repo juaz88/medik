@@ -1,6 +1,17 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
+<?php
+include("../Procesos/control_pedido.php");
+$pedido=new pedido;
+
+$lista_pedidos=$pedido->buscar_pedidos();
+
+
+
+
+
+?>
 
 <head>
 
@@ -41,7 +52,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Topbar Navbar -->
-        <p>Perfil Administrador</p>
+          <p>Perfil Administrador</p>
           <?php /*}*/ ?>
           <ul class="navbar-nav ml-auto">
             <!-- Nav Item - User Information -->
@@ -71,8 +82,55 @@
           </ul>
         </nav>
 
-       <center><h1>Bienvenido a MEDIK Administrador</h1></center>
-       <center><h2>Seleccione una gestión</h2></center>
+        <div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Lista </h6>
+              <div class="d-flex justify-content-end">
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Código de pedido</th>
+                      <th>Fecha</th>
+                      <th>Código carrito</th>
+                      <th>Id_usuario</th>
+                      <th>Valor total</th>
+                      <th>Estado actual</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($lista_pedidos as $dato) {
+                    ?>
+
+                      <tr>
+                        <td><?php echo $dato["cod_pedido"] ?> </td>
+                        <td><?php echo $dato["fecha_pedido"] ?> </td>
+                        <td><?php echo $dato["cod_carrito"] ?> </td>
+                        <td><?php echo $dato["id_usuario"] ?> </td>
+                        <td><?php echo $dato["valor_pedido"] ?> </td>
+                        <td><?php echo $dato["estado"] ?> </td>
+                        <td>
+                          <button class="btn " title="Editar"><a class="fa fa-pencil-alt" href="editar_pedido.php?accion=1 & cod_pedido=<?php echo $dato["cod_pedido"] ?> "></a></button>
+                         
+                        </td>
+                      </tr>
+
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
 
 
       </div>

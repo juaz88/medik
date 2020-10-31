@@ -79,7 +79,7 @@ $inventarioProducto = new InventarioProducto();
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Lista </h6>
+              <h6 class="m-0 font-weight-bold text-primary">Lista de tipos de productos </h6>
               <div class="d-flex justify-content-end">
                 <a class="btn btn-primary" href="nuevo_tipo_producto.php" role="button">Nuevo</a>
               </div>
@@ -102,7 +102,7 @@ $inventarioProducto = new InventarioProducto();
                       <td class="borde marInt alCen"><?php echo $obtener_info->descripcion_producto; ?></td>
                       <td class="borde marInt alCen"><?php echo $obtener_info->id_estado; ?></td>
                       <td>
-                        <a href="../Procesos/modificar_marca.php?cod_marca=<?php echo $obtener_info->cod_tipo_producto; ?>"> <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button></a>
+                        <a href="../Funciones/modificar_marca.php?cod_marca=<?php echo $obtener_info->cod_tipo_producto; ?>"> <button class="btn btn-warning" title="Editar"><i class="fa fa-pencil-alt"></i></button></a>
                        
                         <button class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#myModal2"><i class="fa fa-trash"></i></button>                    
                       </td>

@@ -1,4 +1,18 @@
+<?php  
+include ("conexion/conexion.php");
 
+$modelo = new Db();
+$conexion = $modelo->conectar();
+$sentencia = "SELECT * FROM productos";
+$resultado = $conexion->prepare($sentencia);
+
+$resultado->execute();
+$lista = $resultado->fetchAll();
+
+
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -71,7 +85,6 @@
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
                     
-                    
                 </ul>
             </nav>
             <!-- .main-nav-->
@@ -87,11 +100,7 @@
                 <div class="col-md-6 intro-info order-md-first order-last" data-aos="zoom-in" data-aos-delay="100">
                     <h2>Portege tu salud<br>Pide desde casa con <span>Seguridad plena</span></h2>
                     <div>
-                        <div>
-                        <a href="login.html" class="btn-get-started scrollto">Iniciar sesion</a>
-                        
-                        <button class="btn-get-started scrollto" title="registrarse" data-toggle="modal" data-target="#myModal2">Registrarse</button>                    
-                    </div>
+                        <a href="#about" class="btn-get-started scrollto">Iniciar sesion</a>
                     </div>
                 </div>
 
@@ -102,75 +111,6 @@
 
         </div>
     </section>
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body modal-body-sub_agile">
-					
-					<div class="modal_body_left modal_body_left1">
-						<h3 class="agileinfo_sign">Regístrate</h3>
-						<p>
-						<h4 class="agileinfo_sign">Crea tu cuenta.</h4>
-						</p>
-						<form action="Crear_Cuenta.php" method="post">
-							<div class="styled-input agile-styled-input-top">
-								<input type="text" name="cedula" placeholder="Cedula" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="primer_nombre" placeholder="Primer Nombre" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="segundo_nombre" placeholder="Segundo Nombre">
-							</div>
-							<div class="styled-input">
-								<input type="text" name="direccion" placeholder="Dirección" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="celular" placeholder="Celular" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="telefono" placeholder="Teléfono" required>
-							</div>
-							<div class="styled-input">
-								<label for="">Fecha Nacimiento</label>
-								<input type="date" name="fecha_nacimiento" placeholder="Fecha Nacimiento" required>
-							</div>
-							<div class="styled-input">
-
-							</div>
-							<div class="styled-input">
-
-							</div>
-							<div class="styled-input">
-								<input type="email" name="correo" aria-describedby="emailHelp"
-									placeholder="Correo Electronico" required="">
-							</div>
-							<div class="styled-input">
-								<input type="password" name="contrasena" placeholder="Contraseña" required>
-							</div>
-							<div class="styled-input">
-								<input type="text" name="id_perfil" placeholder="Perfil" required>
-							</div>
-
-							<input type="submit" value="Crear Cuenta">
-						</form>
-
-					</div>
-				</div>
-			</div>
-			<!-- //Modal content-->
-		</div>
-	</div>
     <!-- End Hero -->
 
     <main id="main">
@@ -182,11 +122,81 @@
         <section id="services" class="services section-bg">
             <div class="container" data-aos="fade-up">
 
-               
+                <header class="section-header">
+                    <h3>Servicios</h3>
+                    <p>Con esta aplicacion puedes realizar pedidos directamente a tu farmacia favorita</p>
+                </header>
 
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="box">
+                            <div class="icon" style="background: #fff0da;"><i class="ion-ios-cart" style="color: #e98e06;"></i></div>
+                            <h4 class="title"><a href="formularios/form_pedido.php">Realiza un pedido</a></h4>
+                            <p class="description">Puedes realizar un pedido agregando productos al carrito!</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="box">
+                            <div class="icon" style="background: #fff0da;"><i class="ion-ios-medkit" style="color: #e98e06;"></i></div>
+                            <h4 class="title"><a href="#productos">Ver productos</a></h4>
+                            <p class="description">Puedes ver todos los productos disponibles en tu farmacia favorita!</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="box">
+                            <div class="icon" style="background: #fff0da;"><i class="ion-ios-bookmarks-outline" style="color: #e98e06;"></i></div>
+                            <h4 class="title"><a href="vistas/vista_pedidos.php">Mis pedidos</a></h4>
+                            <p class="description">Puedes ver el estado de tus pedidos para hacer un seguimiento constante!</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
 
         </section>
-        
+        <section id="productos" class="services section-bg">
+            <div class="container" data-aos="zoom-out">
+
+
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Cantidad disponible</th>
+                                            <th>Precio</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($lista as $dato){?>
+                                        <tr>
+                                            <td><?php echo $dato['nombre_producto'];?></td>
+                                            <td><?php echo $dato['cantidad_disponible'];?></td>
+                                            <td><?php echo $dato['precio_ud'];?></td>
+
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
         <!-- End Services Section -->
 
         <!-- ======= Why Us Section ======= -->

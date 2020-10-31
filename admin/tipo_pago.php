@@ -1,6 +1,17 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
+<?php include("../conexion/conexion.php");
+
+$modelo = new Db();
+$conexion = $modelo->conectar();
+$sentencia =  "SELECT * FROM tipo_pago";
+$resultado = $conexion->prepare($sentencia);
+$resultado->execute();
+$lista = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
 
 <head>
 
@@ -41,7 +52,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Topbar Navbar -->
-        <p>Perfil Administrador</p>
+          <p>Perfil Administrador</p>
           <?php /*}*/ ?>
           <ul class="navbar-nav ml-auto">
             <!-- Nav Item - User Information -->
@@ -71,8 +82,49 @@
           </ul>
         </nav>
 
-       <center><h1>Bienvenido a MEDIK Administrador</h1></center>
-       <center><h2>Seleccione una gestión</h2></center>
+        <div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Lista </h6>
+              <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="nuevo_tipo_pago.php" role="button">Nuevo</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Código</th>
+                      <th>Descripción</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($lista as $dato) {
+                    ?>
+
+                      <tr>
+                        <td><?php echo $dato["id_tipo_pago"] ?> </td>
+                        <td><?php echo $dato["descripcion"] ?> </td>
+                        <td><?php echo $dato["estado"] ?> </td>
+                        <td>
+                          <button class="btn " title="Editar"><a class="fa fa-pencil-alt" href="editar_tipo_pago.php?accion=1 & id_tipo_pago=<?php echo $dato["id_tipo_pago"] ?> "></a></button>
+                          <button class="btn " title="Eliminar"> <a class="fa fa-trash" href="../procesos/control_tipo_pago.php?accion=2 & id_tipo_pago=<?php echo $dato['id_tipo_pago'] ?>"></a></button></td>
+                        </td>
+                      </tr>
+
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
 
 
       </div>
