@@ -22,6 +22,17 @@ class InventarioProducto {
       die($ex->getMessage());
     }
   }
+  public function obtenerPago() {
+    try {
+      /*$busqueda=$_POST['busqueda'];*/
+      $sql = "select * from tipo_pago where id_estado = 1";
+      $prep = $this->pdo->prepare($sql);
+      $prep->execute();
+      return $prep->fetchAll(PDO::FETCH_OBJ);
+    } catch (Exception $ex) {
+      die($ex->getMessage());
+    }
+  }
   
   /*public function agregar($inventario) {
     try {
