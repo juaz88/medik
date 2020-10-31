@@ -18,14 +18,30 @@
         $fecha_pedido=$_POST['fecha_pedido'];
         $id_usuario=$_POST['id_usuario'];
         $estado_pedido=$_POST['estado_pedido'];
+        $valor_con_iva=$valor_total*1.19;
         //registra el pedido antes de vaciar el carrito
-        $carrito->registro_pedido($cod_pedido,$fecha_pedido,$cod_carrito,$id_usuario,$valor_total,$estado_pedido);  
+        $carrito->registro_pedido($cod_pedido,$fecha_pedido,$cod_carrito,$id_usuario,$valor_con_iva,$estado_pedido);  
+        //actualiza inventario del producto
+       // $lista_carrito= $carrito->ver_carrito($cod_carrito);
+        
+        foreach ($lista_carrito as $dato){
+            
+            $cod_producto=$dato['cod_producto'];
+            $cantidad=$dato['cantidad'];
+            $saldos=$carrito->saldo_producto($cod_producto);
+            $saldo=$saldos['cantidad_disponible'];
+            //var_dump ($cod_producto);
+            $nuevo_saldo=$saldo-$cantidad;
+            
+           $carrito->actualiza_inventario($cod_producto,$nuevo_saldo);
 
-        //cierra el carrito 
-        $carrito->carrito_cerrar($cod_carrito);
-        header("Location: http://localhost/medik/vistas/vista_pedidos.php");
+        }
 
-      
+       // cierra el carrito 
+       $carrito->carrito_cerrar($cod_carrito);
+       header("Location: http://localhost/medik/vistas/vista_pedidos.php");
+
+        
     }
 
 
@@ -90,13 +106,13 @@
     <header id="header" class="fixed-top header-transparent">
         <div class="container d-flex align-items-center">
 
-            <h1 class="logo mr-auto"><a href="index.html">MediK</a></h1>
+            <h1 class="logo mr-auto"><a href="index.php">MediK</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
             <nav class="main-nav d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="../index.html">Inicio</a></li>
+                    <li class="active"><a href="../index.php">Inicio</a></li>
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
                     <li><a href="#footer">Contacto</a></li>
@@ -115,7 +131,7 @@
             <div class="container">
 
                 <ol>
-                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.php">Inicio</a></li>
 
                 </ol>
                 <h2>Realizar pago!</h2>

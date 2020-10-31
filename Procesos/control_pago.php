@@ -90,7 +90,7 @@
         public function ver_carrito($cod_carrito){
             $modelo = new Db();
             $conexion = $modelo->conectar();
-            $sentencia = "SELECT productos.nombre_producto,cantidad,valor from carrito_producto JOIN productos ON productos.cod_producto=carrito_producto.cod_producto where carrito_producto.cod_carrito=(:cod_carrito) ";
+            $sentencia = "SELECT productos.cod_producto,productos.nombre_producto,cantidad,valor from carrito_producto JOIN productos ON productos.cod_producto=carrito_producto.cod_producto where carrito_producto.cod_carrito=(:cod_carrito) ";
             $resultado = $conexion->prepare($sentencia);
             $resultado->bindParam(':cod_carrito', $cod_carrito);
             $resultado->execute();
@@ -128,7 +128,31 @@
             $resultado->execute();
 
 
+
+
         }    
+
+        public function actualiza_inventario($cod_producto,$cantidad){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "UPDATE productos SET cantidad_disponible=(:cantidad) where cod_producto=(:cod_producto)";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam('cod_producto',$cod_producto);
+            $resultado->bindParam(':cantidad',$cantidad);
+            $resultado->execute();
+
+        }
+
+        public function saldo_producto($cod_producto){
+            $modelo = new Db();
+            $conexion = $modelo->conectar();
+            $sentencia = "SELECT cantidad_disponible from productos where cod_producto=(:cod_producto) ";
+            $resultado = $conexion->prepare($sentencia);
+            $resultado->bindParam(':cod_producto', $cod_producto);
+            $resultado->execute();
+            $saldo=$resultado->fetch();
+            return $saldo;
+        }   
 
 
     }

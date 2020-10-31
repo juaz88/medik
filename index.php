@@ -1,3 +1,20 @@
+<?php  
+include ("conexion/conexion.php");
+
+$modelo = new Db();
+$conexion = $modelo->conectar();
+$sentencia = "SELECT * FROM productos";
+$resultado = $conexion->prepare($sentencia);
+
+$resultado->execute();
+$lista = $resultado->fetchAll();
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -67,7 +84,7 @@
                     <li class="active"><a href="index.html">Inicio</a></li>
                     <li><a href="#about">Sobre nosotros</a></li>
                     <li><a href="#services">Servicios</a></li>
-                    <li><a href="#footer">Contacto</a></li>
+                    <li><a href="admin/gestion_pedido.php">Portal admin</a></li>
                 </ul>
             </nav>
             <!-- .main-nav-->
@@ -161,51 +178,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach ($lista as $dato){?>
                                         <tr>
-                                            <td>Crema Dental</td>
-                                            <td>5</td>
-                                            <td>$5.500</td>
+                                            <td><?php echo $dato['nombre_producto'];?></td>
+                                            <td><?php echo $dato['cantidad_disponible'];?></td>
+                                            <td><?php echo $dato['precio_ud'];?></td>
 
                                         </tr>
-                                        <tr>
-                                            <td>Cepillo de dientes</td>
-                                            <td>4</td>
-                                            <td>$8.000</td>
-
-
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>Jabón de manos</td>
-                                            <td>23</td>
-                                            <td>$12.000</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Crema Dental</td>
-                                            <td>5</td>
-                                            <td>$8.000</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Crema Dental</td>
-                                            <td>5</td>
-                                            <td>$8.000</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Crema Dental</td>
-                                            <td>5</td>
-                                            <td>$8.000</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Crema Dental</td>
-                                            <td>5</td>
-                                            <td>$8.000</td>
-
-                                        </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
